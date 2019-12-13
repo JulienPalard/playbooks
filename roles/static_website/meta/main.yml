@@ -1,4 +1,6 @@
 ---
+
 dependencies:
   - role: julienpalard.nginx_letsencrypt
-    domains: ["{{ uri }}"]
+    vars:
+      domains: ["{{ uri }}"]

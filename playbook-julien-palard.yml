@@ -1,23 +1,29 @@
+---
+
 - hosts: mdk
   roles:
     - role: static_website
-      uri: mdk.fr
-      owner: mdk
-      path: /var/www/mdk.fr/
-      letsencrypt_email: julien@palard.fr
+      vars:
+        uri: mdk.fr
+        owner: mdk
+        path: /var/www/mdk.fr/
+        letsencrypt_email: julien@palard.fr
 
     - role: static_website
-      uri: le-poitevin.fr
-      owner: mdk
-      path: /var/www/le-poitevin.fr/
-      letsencrypt_email: julien@palard.fr
+      vars:
+        uri: le-poitevin.fr
+        owner: mdk
+        path: /var/www/le-poitevin.fr/
+        letsencrypt_email: julien@palard.fr
 
     - role: static_website
-      uri: codeenseine.fr
-      owner: mdk
-      path: /var/www/codeenseine.fr/
-      letsencrypt_email: julien@palard.fr
+      vars:
+        uri: codeenseine.fr
+        owner: mdk
+        path: /var/www/codeenseine.fr/
+        letsencrypt_email: julien@palard.fr
 
     - role: weechat
-      version: 2.7
-      owner: weechat
+      vars:
+        version: 2.7
+        owner: weechat
