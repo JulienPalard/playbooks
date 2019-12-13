@@ -1,0 +1,15 @@
+---
+
+- name: Configure pelican
+  template:
+    src: pelican.conf
+    dest: /etc/nginx/conf.d/pelican-{{ uri }}.conf
+  notify: reload nginx
+
+- name: WWW directory
+  file:
+    path: "{{ path }}"
+    state: directory
+    owner: "{{ owner }}"
+    group: "{{ owner }}"
+    mode: 0755

@@ -1,0 +1,10 @@
+all:
+  vars:
+    ansible_user: root
+    ansible_python_interpreter: /usr/bin/python3
+  children:
+    mdk:
+      hosts:
+        mdk.fr:
+          ansible_host: 51.15.187.166
+          online_server: sd-131717
