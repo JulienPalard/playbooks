@@ -49,7 +49,7 @@
 
       [Service]
       Type=simple
-      ExecStart=/usr/local/weechat/bin/weechat-headless
+      ExecStart=/usr/local/src/weechat/bin/weechat-headless
       User=weechat
       Group=weechat
       Restart=on-failure
