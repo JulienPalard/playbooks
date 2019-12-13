@@ -5,3 +5,6 @@
       owner: mdk
       path: /var/www/mdk.fr/
       letsencrypt_email: julien@palard.fr
+    - role: weechat
+      version: 2.7
+      owner: weechat

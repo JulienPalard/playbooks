@@ -1,0 +1,60 @@
+---
+
+
+- name: Weechat user
+  user:
+    name: "{{ owner }}"
+    state: present
+    system: yes
+
+- name: Weechat source directory
+  file:
+    state: directory
+    path: "/usr/local/src/weechat/"
+    owner: "{{ owner }}"
+
+- name: Get weechat source
+  become: true
+  become_user: "{{ owner }}"
+  unarchive:
+    src: "https://github.com/weechat/weechat/archive/v{{ version }}.tar.gz"
+    remote_src: yes
+    dest: "/usr/local/src/weechat/"
+  register: new_weechat
+
+- name: Compiling dependencies
+  package:
+    name: [build-essential, cmake, libgcrypt20-dev, libgnutls28-dev, zlib1g-dev, libcurl4-gnutls-dev, libpython3-dev, libaspell-dev]
+    state: present
+
+- name: Compile weechat
+  become: true
+  become_user: weechat
+  when: new_weechat.changed
+  shell: |
+    cd /usr/local/src/weechat/weechat-{{ version }}/
+    mkdir -p build
+    cd build
+    cmake .. -DENABLE_ASPELL=OFF -DENABLE_BUFLIST=OFF -DENABLE_CHARSET=ON -DENABLE_EXEC=OFF -DENABLE_GUILE=OFF -DENABLE_JAVASCRIPT=OFF -DENABLE_LUA=OFF -DENABLE_NCURSES=OFF -DENABLE_NLS=OFF -DENABLE_PERL=OFF -DENABLE_PHP=OFF -DENABLE_RUBY=OFF -DENABLE_TCL=OFF -DENABLE_XFER=OFF -DCMAKE_INSTALL_PREFIX=/usr/local/src/weechat/
+    make -j 4
+    make install
+
+- name: Weechat headless as systemd daemon
+  copy:
+    dest: /etc/systemd/system/weechat.service
+    content: |
+      [Unit]
+      Description=Weechat
+      After=network.target
+
+      [Service]
+      Type=simple
+      ExecStart=/usr/local/weechat/bin/weechat-headless
+      User=weechat
+      Group=weechat
+      Restart=on-failure
+
+      [Install]
+      WantedBy=multi-user.target
+
+- service: name=weechat enabled=yes state=started daemon_reload=yes
