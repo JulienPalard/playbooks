@@ -1,9 +1,9 @@
 ---
 
-- name: Configure pelican
+- name: Configure nginx
   template:
-    src: pelican.conf
-    dest: /etc/nginx/conf.d/pelican-{{ uri }}.conf
+    src: nginx.conf
+    dest: /etc/nginx/conf.d/{{ uri }}.conf
   notify: reload nginx
 
 - name: WWW directory

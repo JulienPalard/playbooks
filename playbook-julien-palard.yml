@@ -2,26 +2,32 @@
 
 - hosts: mdk
   roles:
+    - role: julienpalard.nginx_letsencrypt
+      vars:
+        certificates:
+          - [mdk.fr, www.mdk.fr, julien.palard.fr, mandark.fr, palard.fr, sizeof.fr, www.mandark.fr, www.palard.fr, www.sizeof.fr]
+          - [codeenseine.fr, www.codeenseine.fr]
+          - [le-poitevin.fr, www.le-poitevin.fr]
+          - [tuw.fr]
+          - [wyz.fr, www.wyz.fr]
+        letsencrypt_email: julien@palard.fr
     - role: static_website
       vars:
         uri: mdk.fr
         owner: mdk
         path: /var/www/mdk.fr/
-        letsencrypt_email: julien@palard.fr
 
     - role: static_website
       vars:
         uri: le-poitevin.fr
         owner: mdk
         path: /var/www/le-poitevin.fr/
-        letsencrypt_email: julien@palard.fr
 
     - role: static_website
       vars:
         uri: codeenseine.fr
         owner: mdk
         path: /var/www/codeenseine.fr/
-        letsencrypt_email: julien@palard.fr
 
     - role: weechat
       vars:
