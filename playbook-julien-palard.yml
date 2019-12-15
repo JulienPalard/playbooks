@@ -11,22 +11,24 @@
           - [tuw.fr]
           - [wyz.fr, www.wyz.fr]
         letsencrypt_email: julien@palard.fr
+
     - role: static_website
       vars:
         uri: mdk.fr
-        owner: mdk
+        owner: mdk_fr
         path: /var/www/mdk.fr/
+        public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/8I1ecV8EutLc+Qx6Q8b2RhzXMl9n23LznNlw+MQtM deploy'
 
     - role: static_website
       vars:
         uri: le-poitevin.fr
-        owner: mdk
+        owner: le_poitevin_fr
         path: /var/www/le-poitevin.fr/
 
     - role: static_website
       vars:
         uri: codeenseine.fr
-        owner: mdk
+        owner: codeenseine_fr
         path: /var/www/codeenseine.fr/
 
     - role: weechat
