@@ -2,6 +2,23 @@
 
 - hosts: mdk
   roles:
+    - role: nftables
+      vars:
+        nftables_conf: |
+            #!/usr/sbin/nft -f
+
+            flush ruleset
+
+            table inet filter {
+                chain input {
+                    type filter hook input priority 0;
+                    iif lo accept
+                    ct state established,related accept
+                    tcp dport { ssh, http, https } ct state new accept
+                    counter drop
+                }
+            }
+
     - role: julienpalard.nginx_letsencrypt
       vars:
         certificates:

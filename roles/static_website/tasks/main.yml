@@ -1,36 +1,4 @@
 ---
 
-- name: User
-  user:
-    system: yes
-    name: "{{ owner }}"
-
-- name: .ssh directory
-  file:
-    path: "~{{ owner }}/.ssh"
-    state: directory
-    owner: "{{ owner }}"
-    mode: 0755
-
-- name: Deploy key
-  blockinfile:
-    create: yes
-    owner: "{{ owner }}"
-    mode: 0644
-    path: "~{{ owner }}/.ssh/authorized_keys"
-    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK: Deploy key for {{ uri }} -->"
-    block: "{{ public_deploy_key }}"
-
-- name: Configure nginx
-  template:
-    src: nginx.conf
-    dest: "/etc/nginx/conf.d/{{ uri }}.conf"
-  notify: reload nginx
-
-- name: WWW directory
-  file:
-    path: "{{ path }}"
-    state: directory
-    owner: "{{ owner }}"
-    group: "{{ owner }}"
-    mode: 0755
+- include: static_website.yml
+  tags: static_website
