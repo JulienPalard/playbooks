@@ -24,12 +24,14 @@
         uri: le-poitevin.fr
         owner: le_poitevin_fr
         path: /var/www/le-poitevin.fr/
+        public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhFjd1nWN2N0xNm5N+sg9yMcb3sHrYWZ5vPdSUST0zn deploy'
 
     - role: static_website
       vars:
         uri: codeenseine.fr
         owner: codeenseine_fr
         path: /var/www/codeenseine.fr/
+        public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHVUrVDfDWwig4Vau0GJkvEpihMQXUhGVCBOQP6izGgx deploy'
 
     - role: weechat
       vars:
