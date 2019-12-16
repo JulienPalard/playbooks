@@ -1,0 +1,65 @@
+---
+
+- hosts: mdk
+  vars:
+    letsencrypt_email: julien@palard.fr
+  tasks:
+    - name: Setup mdk.fr
+      include_role: name=static_website
+      tags: always
+      vars:
+        domain: mdk.fr
+        extra_certificates: [www.mdk.fr]
+        owner: mdk_fr
+        path: /var/www/mdk.fr/
+        public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/8I1ecV8EutLc+Qx6Q8b2RhzXMl9n23LznNlw+MQtM deploy'
+
+    - name: Setup palard.fr
+      include_role: name=static_website
+      tags: always
+      vars:
+        domain: palard.fr
+        extra_certificates: [julien.palard.fr, www.palard.fr]
+        nginx_extra: "location / {return 301 https://mdk.fr;}"
+
+    - name: Setup mandark.fr
+      include_role: name=static_website
+      tags: always
+      vars:
+        domain: mandark.fr
+        extra_certificates: [www.mandark.fr]
+        nginx_extra: "location / {return 301 https://mdk.fr;}"
+
+    - name: Setup le-poitevin.fr
+      include_role: name=static_website
+      tags: always
+      vars:
+        domain: le-poitevin.fr
+        extra_certificates: [www.le-poitevin.fr]
+        owner: le_poitevin_fr
+        path: /var/www/le-poitevin.fr/
+        public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhFjd1nWN2N0xNm5N+sg9yMcb3sHrYWZ5vPdSUST0zn deploy'
+
+    - name: Setup codeenseine.fr
+      include_role: name=static_website
+      tags: always
+      vars:
+        domain: codeenseine.fr
+        extra_certificates: [www.codeenseine.fr]
+        owner: codeenseine_fr
+        path: /var/www/codeenseine.fr/
+        public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHVUrVDfDWwig4Vau0GJkvEpihMQXUhGVCBOQP6izGgx deploy'
+
+    - name: Setup kisspush.net
+      include_role: name=static_website
+      tags: always
+      vars:
+        domain: kisspush.net
+        extra_certificates: [www.kisspush.net]
+        nginx_extra: "location / {return 301 https://mdk.fr;}"
+
+
+
+  handlers:
+   - name: reload nginx
+     service: name=nginx state=reloaded

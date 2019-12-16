@@ -1,0 +1,32 @@
+---
+
+- hosts: mdk
+  vars:
+    letsencrypt_email: julien@palard.fr
+  tasks:
+    - name: Setup nftables
+      include_role: name=nftables
+      tags: always
+      vars:
+        nftables_conf: |
+            #!/usr/sbin/nft -f
+
+            flush ruleset
+
+            table inet filter {
+                chain input {
+                    type filter hook input priority 0;
+                    iif lo accept
+                    ct state established,related accept
+                    tcp dport { ssh, http, https } ct state new accept
+                    counter drop
+                }
+            }
+    - name: Setup letsencrypt
+      include_role: name=julienpalard.nginx_letsencrypt
+      tags: always
+      vars:
+        certificates:
+          - [irc.mdk.fr]
+          - [tuw.fr]
+          - [wyz.fr, www.wyz.fr]

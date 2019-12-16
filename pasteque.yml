@@ -1,0 +1,13 @@
+---
+
+- hosts: mdk
+  vars:
+    letsencrypt_email: julien@palard.fr
+  tasks:
+    - name: Setup wyz.fr
+      include_role: name=pasteque
+      tags: always
+      vars:
+        owner: wyz
+        domain: wyz.fr
+        path: /home/wyz/
