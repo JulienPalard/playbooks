@@ -1,4 +1,13 @@
 ---
 
-- include: nftables.yml
-  tags: nftables
+- block:
+  - package: name=nftables state=present
+  - service: name=weechat enabled=yes state=started daemon_reload=yes
+  - copy:
+      content: "{{ nftables_conf }}"
+      dest: /etc/nftables.conf
+      owner: root
+      group: root
+      mode: 0755
+    notify: reload nftables
+  tags: [nftables]

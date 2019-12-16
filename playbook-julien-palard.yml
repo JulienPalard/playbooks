@@ -6,6 +6,7 @@
   tasks:
     - name: Setup nftables
       include_role: name=nftables
+      tags: always
       vars:
         nftables_conf: |
             #!/usr/sbin/nft -f
@@ -24,6 +25,7 @@
 
     - name: Setup mdk.fr
       include_role: name=static_website
+      tags: always
       vars:
         domain: mdk.fr
         extra_certificates: [www.mdk.fr]
@@ -33,6 +35,7 @@
 
     - name: Setup palard.fr
       include_role: name=static_website
+      tags: always
       vars:
         domain: palard.fr
         extra_certificates: [julien.palard.fr, www.palard.fr]
@@ -40,6 +43,7 @@
 
     - name: Setup mandark.fr
       include_role: name=static_website
+      tags: always
       vars:
         domain: mandark.fr
         extra_certificates: [www.mandark.fr]
@@ -47,6 +51,7 @@
 
     - name: Setup le-poitevin.fr
       include_role: name=static_website
+      tags: always
       vars:
         domain: le-poitevin.fr
         extra_certificates: [www.le-poitevin.fr]
@@ -56,6 +61,7 @@
 
     - name: Setup codeenseine.fr
       include_role: name=static_website
+      tags: always
       vars:
         domain: codeenseine.fr
         extra_certificates: [www.codeenseine.fr]
@@ -65,6 +71,7 @@
 
     - name: Setup kisspush.net
       include_role: name=static_website
+      tags: always
       vars:
         domain: kisspush.net
         extra_certificates: [www.kisspush.net]
@@ -72,6 +79,7 @@
 
     - name: Setup letsencrypt
       include_role: name=julienpalard.nginx_letsencrypt
+      tags: always
       vars:
         certificates:
           - [irc.mdk.fr]
@@ -80,17 +88,20 @@
 
     - name: Setup weechat
       include_role: name=weechat
+      tags: always
       vars:
         version: 2.7
         owner: weechat
 
     - name: Setup Glowing Bear
+      tags: weechat
       unarchive:
         src: https://github.com/glowing-bear/glowing-bear/archive/0.7.2.tar.gz
         remote_src: yes
         dest: "/usr/local/src/"
 
     - name: Configure irc.mdk.fr
+      tags: weechat
       notify: reload nginx
       copy:
         dest: /etc/nginx/conf.d/irc.mdk.fr.conf
@@ -127,11 +138,22 @@
 
     - name: Setup wyz.fr
       include_role: name=pasteque
-      tags: pasteque
+      tags: always
       vars:
         owner: wyz
         domain: wyz.fr
         path: /home/wyz/
+
+    - name: Setup certificate watcher
+      include_role: name=certificate_watcher
+      tags: always
+      vars:
+        owner: certificate-watcher
+        dest: mdk
+        domains:
+          - mdk.fr
+          - www.mdk.fr
+          - fr.pycon.org
 
   handlers:
    - name: reload nginx
