@@ -1,0 +1,36 @@
+---
+
+- block:
+  - name: Install irker
+    package: name=irker state=present
+
+  - service: name=irker enabled=yes state=started daemon_reload=yes
+
+  - name: Create certificate watcher user
+    user:
+      system: yes
+      name: "{{ owner }}"
+
+  - name: Install certificate watcher
+    pip:
+      name: certificate_watcher
+      virtualenv_command: "/usr/bin/python3 -m venv"
+      virtualenv: "$HOME/.venv/"
+    become: true
+    become_user: "{{ owner }}"
+
+  - name: Setup certificates to watch
+    copy:
+      content: "{{ domains | join('\n')}}"
+      dest: $HOME/certificates
+    become: true
+    become_user: "{{ owner }}"
+
+  - name: Setup certificate watcher cron
+    cron:
+      user: "{{ owner }}"
+      name: Watch certificates
+      minute: "12"
+      hour: "8"
+      job: '$HOME/.venv/bin/certificate_watcher -f ~/certificates | irk "{{ dest }}" -'
+  tags: [certificate_watcher]

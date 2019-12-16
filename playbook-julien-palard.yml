@@ -150,10 +150,73 @@
       vars:
         owner: certificate-watcher
         dest: mdk
-        domains:
-          - mdk.fr
-          - www.mdk.fr
-          - fr.pycon.org
+        domains: |
+          # meltygroup
+          pypi.meltylab.fr
+          admin-framework.staging.meltylab.fr
+          admin-meltyfr.staging.meltylab.fr
+          ads.meltygroup.com
+          api-meltyfr.staging.meltylab.fr
+          boost.staging.meltylab.fr
+          doc-api-sephora.staging.meltylab.fr
+          gitlab.eeple.fr
+          media.melty.fr
+          melty-instant-article.staging.meltylab.fr
+          melty.es
+          melty.fr
+          melty.it
+          meltyfr-amp.staging.meltylab.fr
+          meltygroup-amp.staging.meltylab.fr
+          meltygroup.com
+          meltygroup.staging.meltylab.fr
+          meltylab.fr
+          sephora.staging.meltylab.fr
+          shoko-amp.staging.meltylab.fr
+          shoko.fr
+          ssr.staging.meltylab.fr
+          tyramisu.fr
+
+          # Python
+          pycon.org
+          fr.pycon.org
+          afpy.org
+          pycon.fr
+          bugs.python.org
+          hg.python.org
+          devguide.python.org
+          docs.python.org
+          legacy.python.org
+          packaging.python.org
+          python.org
+          wiki.python.org
+          www.python.org
+          pypi.org
+
+          # Hackinscience
+          hackinscience.org
+          www.hackinscience.org
+
+          # Perso
+          julien.palard.fr
+          le-poitevin.fr
+          mdk.fr
+          wyz.fr
+          palard.fr
+          sizeof.fr
+          www.mdk.fr
+          www.palard.fr
+          www.sizeof.fr
+
+          # Friends
+          mastodon.etalab.gouv.fr
+          protonmail.com
+          makina-corpus.com
+          fr.wikipedia.org
+          mamot.fr
+          framagenda.org
+          framapad.org
+          framanotes.org
+          framasoft.org
 
   handlers:
    - name: reload nginx
