@@ -19,6 +19,7 @@
     src: "https://github.com/weechat/weechat/archive/v{{ version }}.tar.gz"
     remote_src: yes
     dest: "/usr/local/src/weechat/"
+    creates: "/usr/local/src/weechat/weechat-{{ version }}/"
   register: new_weechat
 
 - name: Compiling dependencies

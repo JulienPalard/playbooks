@@ -1,3 +1,4 @@
 ---
 
 nginx_extra: ""
+extra_certificates: []

@@ -1,8 +1,11 @@
 ---
 
 - hosts: mdk
-  roles:
-    - role: nftables
+  vars:
+    letsencrypt_email: julien@palard.fr
+  tasks:
+    - name: Setup nftables
+      include_role: name=nftables
       vars:
         nftables_conf: |
             #!/usr/sbin/nft -f
@@ -19,44 +22,68 @@
                 }
             }
 
-    - role: julienpalard.nginx_letsencrypt
+    - name: Setup mdk.fr
+      include_role: name=static_website
       vars:
-        certificates:
-          - [mdk.fr, www.mdk.fr, julien.palard.fr, mandark.fr, palard.fr, sizeof.fr, www.mandark.fr, www.palard.fr, www.sizeof.fr]
-          - [irc.mdk.fr]
-          - [codeenseine.fr, www.codeenseine.fr]
-          - [le-poitevin.fr, www.le-poitevin.fr]
-          - [tuw.fr]
-          - [wyz.fr, www.wyz.fr]
-        letsencrypt_email: julien@palard.fr
-
-    - role: static_website
-      vars:
-        uri: mdk.fr
+        domain: mdk.fr
+        extra_certificates: [www.mdk.fr]
         owner: mdk_fr
         path: /var/www/mdk.fr/
         public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/8I1ecV8EutLc+Qx6Q8b2RhzXMl9n23LznNlw+MQtM deploy'
 
-    - role: static_website
+    - name: Setup palard.fr
+      include_role: name=static_website
       vars:
-        uri: le-poitevin.fr
+        domain: palard.fr
+        extra_certificates: [julien.palard.fr, www.palard.fr]
+        nginx_extra: "location / {return 301 https://mdk.fr;}"
+
+    - name: Setup mandark.fr
+      include_role: name=static_website
+      vars:
+        domain: mandark.fr
+        extra_certificates: [www.mandark.fr]
+        nginx_extra: "location / {return 301 https://mdk.fr;}"
+
+    - name: Setup le-poitevin.fr
+      include_role: name=static_website
+      vars:
+        domain: le-poitevin.fr
+        extra_certificates: [www.le-poitevin.fr]
         owner: le_poitevin_fr
         path: /var/www/le-poitevin.fr/
         public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhFjd1nWN2N0xNm5N+sg9yMcb3sHrYWZ5vPdSUST0zn deploy'
 
-    - role: static_website
+    - name: Setup codeenseine.fr
+      include_role: name=static_website
       vars:
-        uri: codeenseine.fr
+        domain: codeenseine.fr
+        extra_certificates: [www.codeenseine.fr]
         owner: codeenseine_fr
         path: /var/www/codeenseine.fr/
         public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHVUrVDfDWwig4Vau0GJkvEpihMQXUhGVCBOQP6izGgx deploy'
 
-    - role: weechat
+    - name: Setup kisspush.net
+      include_role: name=static_website
+      vars:
+        domain: kisspush.net
+        extra_certificates: [www.kisspush.net]
+        nginx_extra: "location / {return 301 https://mdk.fr;}"
+
+    - name: Setup letsencrypt
+      include_role: name=julienpalard.nginx_letsencrypt
+      vars:
+        certificates:
+          - [irc.mdk.fr]
+          - [tuw.fr]
+          - [wyz.fr, www.wyz.fr]
+
+    - name: Setup weechat
+      include_role: name=weechat
       vars:
         version: 2.7
         owner: weechat
 
-  tasks:
     - name: Setup Glowing Bear
       unarchive:
         src: https://github.com/glowing-bear/glowing-bear/archive/0.7.2.tar.gz

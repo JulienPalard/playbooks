@@ -4,6 +4,7 @@
   user:
     system: yes
     name: "{{ owner }}"
+  when: owner is defined
 
 - name: .ssh directory
   file:
@@ -11,6 +12,7 @@
     state: directory
     owner: "{{ owner }}"
     mode: 0755
+  when: owner is defined
 
 - name: Deploy key
   blockinfile:
@@ -18,13 +20,14 @@
     owner: "{{ owner }}"
     mode: 0644
     path: "~{{ owner }}/.ssh/authorized_keys"
-    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK: Deploy key for {{ uri }} -->"
+    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK: Deploy key for {{ domain }} -->"
     block: "{{ public_deploy_key }}"
+  when: owner is defined and public_deploy_key is defined
 
 - name: Configure nginx
   template:
     src: nginx.conf
-    dest: "/etc/nginx/conf.d/{{ uri }}.conf"
+    dest: "/etc/nginx/conf.d/{{ domain }}.conf"
   notify: reload nginx
 
 - name: WWW directory
@@ -34,3 +37,4 @@
     owner: "{{ owner }}"
     group: "{{ owner }}"
     mode: 0755
+  when: owner is defined and path is defined
