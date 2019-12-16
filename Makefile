@@ -1,6 +1,6 @@
 .PHONY: ansible-playbook
 ansible-playbook: deps
-	if [ -n "$TAG" ]; then \
+	if [ -n "$(TAG)" ]; then \
 	    ansible-playbook playbook-julien-palard.yml -i inventory.yml -t $(TAG); \
 	else \
 	    ansible-playbook playbook-julien-palard.yml -i inventory.yml; \
