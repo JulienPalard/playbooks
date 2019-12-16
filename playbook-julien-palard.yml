@@ -125,6 +125,14 @@
               }
           }
 
+    - name: Setup wyz.fr
+      include_role: name=pasteque
+      tags: pasteque
+      vars:
+        owner: wyz
+        domain: wyz.fr
+        path: /home/wyz/
+
   handlers:
    - name: reload nginx
      service: name=nginx state=reloaded
