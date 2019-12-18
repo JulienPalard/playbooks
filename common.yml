@@ -30,7 +30,7 @@
       include_role: name=julienpalard.nginx_letsencrypt
       tags: always
       vars:
-        certificates:
+        letsencrypt_certificates:
           - [irc.mdk.fr]
           - [tuw.fr]
           - [wyz.fr, www.wyz.fr]

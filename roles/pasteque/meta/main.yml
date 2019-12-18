@@ -3,4 +3,4 @@
 dependencies:
   - role: julienpalard.nginx_letsencrypt
     vars:
-      certificates: "{{ [[domain]] }}"
+      letsencrypt_certificates: "{{ [[domain]] }}"

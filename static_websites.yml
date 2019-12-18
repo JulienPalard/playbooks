@@ -5,55 +5,144 @@
     letsencrypt_email: julien@palard.fr
   tasks:
     - name: Setup mdk.fr
-      include_role: name=julienpalard.static_website
-      tags: always
+      include_role: name=julienpalard.nginx
       vars:
-        domain: mdk.fr
-        extra_certificates: [www.mdk.fr]
-        owner: mdk_fr
-        path: /var/www/mdk.fr/
-        public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/8I1ecV8EutLc+Qx6Q8b2RhzXMl9n23LznNlw+MQtM deploy'
+        nginx_domain: mdk.fr
+        nginx_certificates: [mdk.fr, www.mdk.fr, julien.palard.fr, mandark.fr, palard.fr, sizeof.fr, www.mandark.fr, www.palard.fr, www.sizeof.fr]
+        nginx_owner: mdk_fr
+        nginx_path: /var/www/mdk.fr/
+        nginx_public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/8I1ecV8EutLc+Qx6Q8b2RhzXMl9n23LznNlw+MQtM deploy'
 
     - name: Setup palard.fr
-      include_role: name=julienpalard.static_website
-      tags: always
+      include_role: name=julienpalard.nginx
       vars:
-        domain: palard.fr
-        extra_certificates: [julien.palard.fr, www.palard.fr]
-        nginx_extra: "location / {return 301 https://mdk.fr;}"
+        nginx_domain: palard.fr
+        nginx_certificates: [mdk.fr, www.mdk.fr, julien.palard.fr, mandark.fr, palard.fr, sizeof.fr, www.mandark.fr, www.palard.fr, www.sizeof.fr]
+        nginx_conf: |
+          server
+          {
+              listen 80;
+              server_name www.mdk.fr julien.palard.fr mandark.fr palard.fr sizeof.fr www.mandark.fr www.palard.fr www.sizeof.fr;
+              access_log /var/log/nginx/palard.fr-access.log;
+              error_log /var/log/nginx/palard.fr-error.log;
+              return 301 https://mdk.fr;
+          }
 
-    - name: Setup mandark.fr
-      include_role: name=julienpalard.static_website
-      tags: always
-      vars:
-        domain: mandark.fr
-        extra_certificates: [www.mandark.fr]
-        nginx_extra: "location / {return 301 https://mdk.fr;}"
+          server
+          {
+              listen 443 ssl;
+              server_name www.mdk.fr julien.palard.fr mandark.fr palard.fr sizeof.fr www.mandark.fr www.palard.fr www.sizeof.fr;
+              access_log /var/log/nginx/palard.fr-access.log;
+              error_log /var/log/nginx/palard.fr-error.log;
+              include snippets/letsencrypt-mdk.fr.conf;
+              return 301 https://mdk.fr;
+          }
 
     - name: Setup le-poitevin.fr
-      include_role: name=julienpalard.static_website
+      include_role: name=julienpalard.nginx
       tags: always
       vars:
-        domain: le-poitevin.fr
-        extra_certificates: [www.le-poitevin.fr]
-        owner: le_poitevin_fr
-        path: /var/www/le-poitevin.fr/
-        public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhFjd1nWN2N0xNm5N+sg9yMcb3sHrYWZ5vPdSUST0zn deploy'
+        nginx_domain: le-poitevin.fr
+        nginx_certificates: [le-poitevin.fr, www.le-poitevin.fr]
+        nginx_owner: le_poitevin_fr
+        nginx_path: /var/www/le-poitevin.fr/
+        nginx_public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhFjd1nWN2N0xNm5N+sg9yMcb3sHrYWZ5vPdSUST0zn deploy'
+        nginx_conf: |
+          server
+          {
+              listen 80;
+              server_name le-poitevin.fr;
+              access_log /var/log/nginx/le-poitevin.fr-access.log;
+              error_log /var/log/nginx/le-poitevin.fr-error.log;
+              return 301 https://$host$request_uri;
+          }
+
+          server
+          {
+              listen 80;
+              server_name www.le-poitevin.fr;
+              access_log /var/log/nginx/le-poitevin.fr-access.log;
+              error_log /var/log/nginx/le-poitevin.fr-error.log;
+              return 301 https://le-poitevin.fr$request_uri;
+          }
+
+          server
+          {
+              listen 443 ssl;
+              server_name le-poitevin.fr;
+              access_log /var/log/nginx/le-poitevin.fr-access.log;
+              error_log /var/log/nginx/le-poitevin.fr-error.log;
+              include snippets/letsencrypt-le-poitevin.fr.conf;
+              root /var/www/le-poitevin.fr/;
+              index index.html;
+          }
+
+          server
+          {
+              listen 443 ssl;
+              server_name www.le-poitevin.fr;
+              access_log /var/log/nginx/le-poitevin.fr-access.log;
+              error_log /var/log/nginx/le-poitevin.fr-error.log;
+              include snippets/letsencrypt-le-poitevin.fr.conf;
+              return 301 https://le-poitevin.fr$request_uri;
+          }
 
     - name: Setup codeenseine.fr
-      include_role: name=julienpalard.static_website
+      include_role: name=julienpalard.nginx
       tags: always
       vars:
-        domain: codeenseine.fr
-        extra_certificates: [www.codeenseine.fr]
-        owner: codeenseine_fr
-        path: /var/www/codeenseine.fr/
-        public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHVUrVDfDWwig4Vau0GJkvEpihMQXUhGVCBOQP6izGgx deploy'
+        nginx_domain: codeenseine.fr
+        nginx_certificates: [codeenseine.fr, www.codeenseine.fr]
+        nginx_owner: codeenseine_fr
+        nginx_path: /var/www/codeenseine.fr/
+        nginx_public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHVUrVDfDWwig4Vau0GJkvEpihMQXUhGVCBOQP6izGgx deploy'
 
-    - name: Setup kisspush.net
-      include_role: name=julienpalard.static_website
+    - name: www.codeenseine.fr redirects to codeenseine.fr
+      include_role: name=julienpalard.nginx
+      vars:
+        nginx_domain: www.codeenseine.fr
+        nginx_conf: |
+          server
+          {
+              listen 80;
+              server_name www.codeenseine.fr;
+              access_log /var/log/nginx/codeenseine.fr-access.log;
+              error_log /var/log/nginx/codeenseine.fr-error.log;
+              return 301 https://codeenseine.fr$request_uri;
+          }
+
+          server
+          {
+              listen 443 ssl;
+              server_name www.codeenseine.fr;
+              access_log /var/log/nginx/codeenseine.fr-access.log;
+              error_log /var/log/nginx/codeenseine.fr-error.log;
+              include snippets/letsencrypt-codeenseine.fr.conf;
+              return 301 https://codeenseine.fr$request_uri;
+          }
+
+    - name: kisspush.net redirects to mdk.fr
+      include_role: name=julienpalard.nginx
       tags: always
       vars:
-        domain: kisspush.net
-        extra_certificates: [www.kisspush.net]
-        nginx_extra: "location / {return 301 https://mdk.fr;}"
+        nginx_domain: kisspush.net
+        nginx_certificates: [kisspush.net]
+        nginx_conf: |
+          server
+          {
+              listen 80;
+              server_name kisspush.net;
+              access_log /var/log/nginx/kisspush.net-access.log;
+              error_log /var/log/nginx/kisspush.net-error.log;
+              return 301 https://mdk.fr;
+          }
+
+          server
+          {
+              listen 443 ssl;
+              server_name kisspush.net;
+              access_log /var/log/nginx/kisspush.net-access.log;
+              error_log /var/log/nginx/kisspush.net-error.log;
+              include snippets/letsencrypt-kisspush.net.conf;
+              return 301 https://mdk.fr;
+          }
