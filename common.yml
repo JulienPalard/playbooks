@@ -4,6 +4,10 @@
   vars:
     letsencrypt_email: julien@palard.fr
   tasks:
+    - name: Configure hostname
+      hostname:
+        name: "{{ inventory_hostname_short }}"
+
     - name: Setup nftables
       include_role: name=nftables
       tags: always
