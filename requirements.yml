@@ -1,0 +1,4 @@
+---
+roles:
+  - src: julienpalard.nginx
+    version: master
