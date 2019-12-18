@@ -2,7 +2,7 @@
 
 - block:
   - package: name=nftables state=present
-  - service: name=weechat enabled=yes state=started daemon_reload=yes
+  - service: name=nftables enabled=yes state=started daemon_reload=yes
   - copy:
       content: "{{ nftables_conf }}"
       dest: /etc/nftables.conf
