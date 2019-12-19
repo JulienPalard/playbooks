@@ -21,7 +21,7 @@
 
   - name: Setup certificates to watch
     copy:
-      content: "{{ domains | join('\n')}}"
+      content: "{{ domains }}"
       dest: $HOME/certificates
     become: true
     become_user: "{{ owner }}"
