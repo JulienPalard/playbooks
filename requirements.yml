@@ -2,3 +2,5 @@
 roles:
   - src: julienpalard.nginx
     version: master
+  - src: tschifftner.exim4_sendonly
+    version: master

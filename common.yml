@@ -26,6 +26,7 @@
                     counter drop
                 }
             }
+
     - name: Setup letsencrypt
       include_role: name=julienpalard.nginx_letsencrypt
       tags: always
@@ -34,3 +35,6 @@
           - [irc.mdk.fr]
           - [tuw.fr]
           - [wyz.fr, www.wyz.fr]
+
+    - name: Exim4
+      include_role: name=tschifftner.exim4_sendonly

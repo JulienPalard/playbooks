@@ -8,3 +8,12 @@ all:
         mdk.fr:
           ansible_host: 51.15.187.166
           online_server: sd-131717
+    grid:
+      hosts:
+        bar.local:
+        ada.local:
+        windhowl.local:
+        boole.local:
+        church.local:
+        alan.local:
+        shannon.local:
