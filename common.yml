@@ -34,7 +34,6 @@
         letsencrypt_certificates:
           - [irc.mdk.fr]
           - [tuw.fr]
-          - [wyz.fr, www.wyz.fr]
 
     - name: Exim4
       include_role: name=tschifftner.exim4_sendonly
