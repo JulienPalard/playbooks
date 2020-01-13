@@ -31,6 +31,7 @@
           server
           {
               listen 443 ssl;
+              charset utf-8;
               server_name www.mdk.fr julien.palard.fr mandark.fr palard.fr sizeof.fr www.mandark.fr www.palard.fr www.sizeof.fr;
               access_log /var/log/nginx/palard.fr-access.log;
               error_log /var/log/nginx/palard.fr-error.log;
