@@ -36,21 +36,25 @@
           ssr.staging.meltylab.fr
           tyramisu.fr
 
-          # Python
-          pycon.org
-          fr.pycon.org
+          # AFPy
           afpy.org
+          fr.pycon.org
           pycon.fr
+          pycon.org
+
+          # Python
+
           bugs.python.org
-          hg.python.org
           devguide.python.org
           docs.python.org
+          hg.python.org
           legacy.python.org
           packaging.python.org
+          pypi.org
           python.org
+          speed.python.org
           wiki.python.org
           www.python.org
-          pypi.org
 
           # Hackinscience
           hackinscience.org
