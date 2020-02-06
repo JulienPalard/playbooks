@@ -23,6 +23,7 @@
                     iif lo accept
                     ct state established,related accept
                     tcp dport { ssh, http, https, 5201 } ct state new accept
+                    ip protocol icmp icmp type { destination-unreachable, echo-reply, echo-request, source-quench, time-exceeded } accept
                     counter drop
                 }
             }
