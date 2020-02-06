@@ -10,6 +10,7 @@
       vars:
         owner: certificate-watcher
         dest: mdk
+        prefix: "mdk:"
         domains: |
           # meltygroup
           pypi.meltylab.fr
