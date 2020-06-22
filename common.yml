@@ -8,6 +8,15 @@
       hostname:
         name: "{{ inventory_hostname_short }}"
 
+    - name: Configure FQDN
+      lineinfile:
+        path: /etc/hosts
+        regexp: '^127\.0\.0\.1'
+        line: "127.0.0.1 {{ inventory_hostname }} {{ inventory_hostname_short }} localhost"
+        owner: root
+        group: root
+        mode: 0644
+
     - name: Setup nftables
       include_role: name=nftables
       tags: always

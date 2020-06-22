@@ -3,6 +3,7 @@
 - hosts: mdk
   vars:
     letsencrypt_email: julien@palard.fr
+    glowing_bear_version: 0.8.0
   tasks:
     - name: Setup weechat
       include_role: name=weechat
@@ -14,7 +15,7 @@
     - name: Setup Glowing Bear
       tags: weechat
       unarchive:
-        src: https://github.com/glowing-bear/glowing-bear/archive/0.7.2.tar.gz
+        src: https://github.com/glowing-bear/glowing-bear/archive/{{ glowing_bear_version }}.tar.gz
         remote_src: yes
         dest: "/usr/local/src/"
 
@@ -40,7 +41,7 @@
 
               location /
               {
-                  root /usr/local/src/glowing-bear-0.7.2/;
+                  root /usr/local/src/glowing-bear-{{ glowing_bear_version }}/;
                   index index.html;
               }
 
