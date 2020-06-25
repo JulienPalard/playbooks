@@ -35,7 +35,6 @@
           shoko-amp.staging.meltylab.fr
           shoko.fr
           ssr.staging.meltylab.fr
-          tyramisu.fr
 
           # AFPy
           afpy.org
@@ -46,6 +45,7 @@
 
           # Python
           bugs.python.org
+          mail.python.org
           devguide.python.org
           docs.python.org
           hg.python.org
@@ -69,6 +69,7 @@
           wyz.fr
           palard.fr
           sizeof.fr
+          irc.mdk.fr
           www.mdk.fr
           www.palard.fr
           www.sizeof.fr
