@@ -17,6 +17,24 @@
         group: root
         mode: 0644
 
+    - name: Install fail2ban
+      apt:
+        name: fail2ban
+        state: present
+
+    - name: Configure fail2ban
+      copy:
+        content: |
+          [nginx-botsearch]
+          enabled  = true
+          port     = http,https
+          logpath  = %(nginx_error_log)s
+          maxretry = 2
+        dest: /etc/fail2ban/jail.d/nginx.conf
+        mode: 0x644
+      notify: reload fail2ban
+
+
     - name: Setup nftables
       include_role: name=nftables
       tags: always
@@ -47,3 +65,7 @@
 
     - name: Exim4
       include_role: name=tschifftner.exim4_sendonly
+
+  handlers:
+    - name: reload fail2ban
+      service: name=fail2ban state=reloaded
