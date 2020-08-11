@@ -5,3 +5,4 @@
 - import_playbook: pasteque.yml
 - import_playbook: static_websites.yml
 - import_playbook: weechat.yml
+- import_playbook: rss2email.yml
