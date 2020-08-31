@@ -39,7 +39,7 @@
           encodings = US-ASCII, ISO-8859-1, UTF-8, BIG5, ISO-2022-JP
           post-process =
           digest-post-process =
-          html-mail = False
+          html-mail = True
           use-css = False
           css = h1 {
           	font: 18pt Georgia, "Times New Roman";
