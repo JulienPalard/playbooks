@@ -9,7 +9,7 @@
       include_role: name=weechat
       tags: always
       vars:
-        version: 2.7
+        version: 2.9
         owner: weechat
 
     - name: Setup Glowing Bear

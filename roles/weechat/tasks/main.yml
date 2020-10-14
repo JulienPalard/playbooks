@@ -2,6 +2,9 @@
 
 - block:
 
+  - name: Dependency for some modules
+    apt: name=python3-websocket state=present
+
   - name: Weechat user
     user:
       name: "{{ owner }}"
@@ -50,6 +53,25 @@
       cmake .. -DENABLE_ASPELL=OFF -DENABLE_BUFLIST=OFF -DENABLE_CHARSET=ON -DENABLE_EXEC=OFF -DENABLE_GUILE=OFF -DENABLE_JAVASCRIPT=OFF -DENABLE_LUA=OFF -DENABLE_NCURSES=OFF -DENABLE_NLS=OFF -DENABLE_PERL=OFF -DENABLE_PHP=OFF -DENABLE_RUBY=OFF -DENABLE_TCL=OFF -DENABLE_XFER=OFF -DENABLE_PYTHON3=ON -DCMAKE_INSTALL_PREFIX=/usr/local/src/weechat/
       make -j 4
       make install
+
+  - name: Create python/autoload directory
+    file:
+      path: "/home/{{ owner }}/.weechat/python/autoload"
+      state: directory
+      mode: 0755
+      owner: "{{ owner }}"
+      group: "{{ owner }}"
+
+  - name: Download wee-slack
+    get_url:
+      url: https://raw.githubusercontent.com/wee-slack/wee-slack/master/wee_slack.py
+      dest: "/home/{{ owner }}/.weechat/python/wee_slack.py"
+
+  - name: Autoload wee-slack
+    file:
+      state: link
+      src: "/home/{{ owner }}/.weechat/python/wee_slack.py"
+      dest: "/home/{{ owner }}/.weechat/python/autoload/wee_slack.py"
 
   - name: Weechat headless as systemd daemon
     copy:
