@@ -1,0 +1,8 @@
+---
+
+- hosts: mdk
+  roles: ["julienpalard.ctfd"]
+  vars:
+    domain: ctf.mdk.fr
+    letsencrypt_email: julien@palard.fr
+    secret_key: "{{ vault_ctfd_secret }}"
