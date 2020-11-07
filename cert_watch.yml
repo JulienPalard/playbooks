@@ -14,27 +14,13 @@
         domains: |
           # meltygroup
           pypi.meltylab.fr
-          admin-framework.staging.meltylab.fr
-          admin-meltyfr.staging.meltylab.fr
-          ads.meltygroup.com
-          api-meltyfr.staging.meltylab.fr
-          boost.staging.meltylab.fr
-          doc-api-sephora.staging.meltylab.fr
           gitlab.eeple.fr
           media.melty.fr
-          melty-instant-article.staging.meltylab.fr
           melty.es
           melty.fr
           melty.it
-          meltyfr-amp.staging.meltylab.fr
-          meltygroup-amp.staging.meltylab.fr
           meltygroup.com
-          meltygroup.staging.meltylab.fr
-          meltylab.fr
-          sephora.staging.meltylab.fr
-          shoko-amp.staging.meltylab.fr
           shoko.fr
-          ssr.staging.meltylab.fr
 
           # AFPy
           afpy.org
