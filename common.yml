@@ -22,7 +22,7 @@
         name: fail2ban
         state: present
 
-    - name: Configure fail2ban
+    - name: Configure fail2ban for nginx
       copy:
         content: |
           [nginx-botsearch]
@@ -34,6 +34,14 @@
         mode: 0x644
       notify: reload fail2ban
 
+    - name: Configure fail2ban bantime
+      copy:
+        content: |
+          [DEFAULT]
+          bantime  = 30d
+        dest: /etc/fail2ban/jail.d/mdk-bantime.conf
+        mode: 0x644
+      notify: reload fail2ban
 
     - name: Setup nftables
       include_role: name=nftables
