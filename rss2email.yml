@@ -138,3 +138,6 @@
 
           [feed.top-scoring-links-securityCTF]
           url = https://www.reddit.com/r/securityCTF/top/.rss?t=month
+
+          [feed.linuxfr]
+          url = https://linuxfr.org/news.atom
