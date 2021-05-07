@@ -13,7 +13,7 @@
 
   - name: Install certificate watcher
     pip:
-      name: certificate_watcher==0.0.4
+      name: certificate_watcher>=0.0.5
       virtualenv_command: "/usr/bin/python3 -m venv"
       virtualenv: "$HOME/.venv/"
     become: true

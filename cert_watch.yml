@@ -15,17 +15,38 @@
           # meltygroup
           pypi.meltylab.fr
           gitlab.eeple.fr
-          media.melty.fr
-          melty.es
+
           melty.fr
-          melty.it
+          www.melty.fr
+          www.melty.fr@cdn-onl1.meltygroup.com
+          www.melty.fr@cdn-onl2.meltygroup.com
+          www.melty.fr@cdn-onl3.meltygroup.com
+          www.melty.fr@cdn-ovh1.meltygroup.com
+          www.melty.fr@cdn-ovh2.meltygroup.com
+
+          media.melty.fr
+          media.melty.fr@cdn-onl1.meltygroup.com
+          media.melty.fr@cdn-onl2.meltygroup.com
+          media.melty.fr@cdn-onl3.meltygroup.com
+          media.melty.fr@cdn-ovh1.meltygroup.com
+          media.melty.fr@cdn-ovh2.meltygroup.com
+          media.melty.fr@mediamelty.cdnbox.meltygroup.com
+
           meltygroup.com
-          shoko.fr
+          www.meltygroup.com
+          media.meltygroup.com
+
+          peaches.fr
+          www.peaches.fr
+          media.peaches.fr
+
+          trendy.letudiant.fr
 
           # AFPy
           afpy.org
           bbb.afpy.org
           dl.afpy.org
+          logs.afpy.org
           discuss.afpy.org
           fr.pycon.org
           pycon.fr
@@ -67,6 +88,7 @@
           mastodon.etalab.gouv.fr
           protonmail.com
           makina-corpus.com
+          humancoders.com
           fr.wikipedia.org
           mamot.fr
           framagenda.org
