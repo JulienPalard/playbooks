@@ -39,6 +39,7 @@
         - libpython3-dev
         - libaspell-dev
         - python3-dev
+        - python3-websocket
         - pkg-config
       state: present
 
@@ -53,6 +54,7 @@
       cmake .. -DENABLE_ASPELL=OFF -DENABLE_BUFLIST=OFF -DENABLE_CHARSET=ON -DENABLE_EXEC=OFF -DENABLE_GUILE=OFF -DENABLE_JAVASCRIPT=OFF -DENABLE_LUA=OFF -DENABLE_NCURSES=OFF -DENABLE_NLS=OFF -DENABLE_PERL=OFF -DENABLE_PHP=OFF -DENABLE_RUBY=OFF -DENABLE_TCL=OFF -DENABLE_XFER=OFF -DENABLE_PYTHON3=ON -DCMAKE_INSTALL_PREFIX=/usr/local/src/weechat/
       make -j 4
       make install
+    notify: weechat
 
   - name: Create python/autoload directory
     file:
@@ -63,9 +65,18 @@
       group: "{{ owner }}"
 
   - name: Download wee-slack
-    get_url:
-      url: https://raw.githubusercontent.com/wee-slack/wee-slack/master/wee_slack.py
+    tags: weechat
+    unarchive:
+      src: "https://github.com/wee-slack/wee-slack/archive/refs/tags/v{{ wee_slack_version }}.tar.gz"
+      remote_src: yes
+      dest: "/usr/local/src/"
+
+  - name: Install wee-slack
+    copy:
+      remote_src: yes
+      src: "/usr/local/src/wee-slack-{{ wee_slack_version }}/wee_slack.py"
       dest: "/home/{{ owner }}/.weechat/python/wee_slack.py"
+    notify: weechat
 
   - name: Autoload wee-slack
     file:
