@@ -31,6 +31,6 @@
       user: "{{ owner }}"
       name: Watch certificates
       minute: "12"
-      hour: "8"
+      hour: "7-23"
       job: '$HOME/.venv/bin/certificate_watcher -f ~/certificates | while read -r line; do printf "{{ prefix }} \%s" "$line" | irk "{{ dest }}" - ; done'
   tags: [certificate_watcher]
