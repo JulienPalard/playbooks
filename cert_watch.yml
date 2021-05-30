@@ -9,7 +9,7 @@
       tags: always
       vars:
         owner: certificate-watcher
-        dest: mdk
+        dest: 'irc://irc.libera.chat/#mdk'
         prefix: "mdk:"
         domains: |
           # meltygroup
