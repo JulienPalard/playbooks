@@ -11,7 +11,9 @@
         nginx_certificates: [mdk.fr, www.mdk.fr, julien.palard.fr, mandark.fr, palard.fr, sizeof.fr, www.mandark.fr, www.palard.fr, www.sizeof.fr]
         nginx_owner: mdk_fr
         nginx_path: /var/www/mdk.fr/
-        nginx_public_deploy_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/8I1ecV8EutLc+Qx6Q8b2RhzXMl9n23LznNlw+MQtM deploy'
+        nginx_public_deploy_key: |
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/8I1ecV8EutLc+Qx6Q8b2RhzXMl9n23LznNlw+MQtM mdk.fr
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIETtLGjVKqpQ4bQRh108Bi5vkc8omuEwZPEUbeysLfci formations
 
     - name: Setup palard.fr
       include_role: name=julienpalard.nginx
