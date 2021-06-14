@@ -48,10 +48,25 @@
           dl.afpy.org
           logs.afpy.org
           discuss.afpy.org
-          fr.pycon.org
-          pycon.fr
-          pycon.org
           mail.afpy.org:993
+
+          fr.pycon.org
+          pycon.org
+
+          2010.pycon.fr
+          2011.pycon.fr
+          2012.pycon.fr
+          2016.pycon.fr
+          autoconfig.pycon.fr
+          cfp-2018.pycon.fr
+          cfp-2019.pycon.fr
+          cfp-2020.pycon.fr
+          cfp.pycon.fr
+          paullaroid.pycon.fr
+          pycon.fr
+          video-2015.pycon.fr
+          video.pycon.fr
+          www.pycon.fr
 
           # Python
           bugs.python.org
