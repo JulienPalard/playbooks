@@ -1,4 +1,4 @@
 ---
 
 - name: weechat
-  service: name=weechat state=restart daemon_reload=yes
+  service: name=weechat state=restarted daemon_reload=yes

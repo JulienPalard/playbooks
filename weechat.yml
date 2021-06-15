@@ -4,7 +4,7 @@
   vars:
     letsencrypt_email: julien@palard.fr
     glowing_bear_version: 0.9.0
-    weechat_version: 3.1
+    weechat_version: 3.2
     wee_slack_version: 2.8.0
   tasks:
     - name: Setup weechat
